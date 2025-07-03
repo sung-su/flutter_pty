@@ -20,3 +20,5 @@ set(flutter_pty_bundled_libraries
   $<TARGET_FILE:flutter_pty>
   PARENT_SCOPE
 )
+
+install(FILES lib/armv7l/libflutter_pty.so DESTINATION lib)
