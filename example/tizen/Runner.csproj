@@ -1,0 +1,25 @@
+﻿<Project Sdk="Tizen.NET.Sdk/1.1.7">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>tizen80</TargetFramework>
+    <DefineConstants>$(DefineConstants);__TIZEN__;TIZEN</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(FlutterEmbeddingPath)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FlutterEphemeral Include="flutter\ephemeral\**\*" />
+    <TizenTpkUserIncludeFiles Include="@(FlutterEphemeral)">
+      <TizenTpkSubDir>%(RecursiveDir)</TizenTpkSubDir>
+    </TizenTpkUserIncludeFiles>
+  </ItemGroup>
+
+  <ItemGroup>
+    <TizenTpkUserIncludeFiles Include="./shared/libflutter_pty.so">
+      <TizenTpkSubDir>shared</TizenTpkSubDir>
+    </TizenTpkUserIncludeFiles>
+  </ItemGroup>
+</Project>
