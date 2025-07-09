@@ -17,8 +17,22 @@
     </TizenTpkUserIncludeFiles>
   </ItemGroup>
 
+  <PropertyGroup>
+    <PtyPluginSourceDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)/../../'))</PtyPluginSourceDir>
+    <PtyPluginBuildDir>$(MSBuildProjectDirectory)/build/flutter_pty</PtyPluginBuildDir>
+  </PropertyGroup>
+
+  <Target Name="BuildPtyNative" BeforeTargets="Build">
+    <Message Text="Building native flutter_pty plugin at $(PtyPluginBuildDir)..." Importance="high" />
+    <MakeDir Directories="$(PtyPluginBuildDir)" />
+    <Exec Command="cmake -S $(PtyPluginSourceDir)/tizen -B $(PtyPluginBuildDir) -DCMAKE_TOOLCHAIN_FILE=$(PtyPluginSourceDir)/tizen/tizen-armv7l-toolchain.cmake -DCMAKE_BUILD_TYPE=$(Configuration)" />
+    <Exec Command="cmake --build $(PtyPluginBuildDir)" />
+  </Target>
+
+  <TizenSoFile Include="$(PtyPluginBuildDir)/shared/libflutter_pty.so" />
+
   <ItemGroup>
-    <TizenTpkUserIncludeFiles Include="./shared/libflutter_pty.so">
+    <TizenTpkUserIncludeFiles Include="$(PtyPluginBuildDir)/shared/libflutter_pty.so">
       <TizenTpkSubDir>shared</TizenTpkSubDir>
     </TizenTpkUserIncludeFiles>
   </ItemGroup>
