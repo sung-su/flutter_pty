@@ -29,8 +29,6 @@
     <Exec Command="cmake --build $(PtyPluginBuildDir)" />
   </Target>
 
-  <TizenSoFile Include="$(PtyPluginBuildDir)/shared/libflutter_pty.so" />
-
   <ItemGroup>
     <TizenTpkUserIncludeFiles Include="$(PtyPluginBuildDir)/shared/libflutter_pty.so">
       <TizenTpkSubDir>shared</TizenTpkSubDir>

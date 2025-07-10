@@ -13,6 +13,10 @@ final DynamicLibrary _dylib = () {
   if (Platform.isMacOS || Platform.isIOS) {
     return DynamicLibrary.open('$_libName.framework/$_libName');
   }
+  if (Platform.environment.containsKey('TIZEN_API_VERSION'))
+  {
+    return DynamicLibrary.open('${Platform.environment['AUL_ROOT_PATH']}/shared/lib$_libName.so');
+  }
   if (Platform.isAndroid || Platform.isLinux) {
     return DynamicLibrary.open('lib$_libName.so');
   }
